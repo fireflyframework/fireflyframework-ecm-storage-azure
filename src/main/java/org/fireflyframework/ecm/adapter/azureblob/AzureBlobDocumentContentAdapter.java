@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -202,14 +203,11 @@ public class AzureBlobDocumentContentAdapter implements DocumentContentPort {
 
     @Override
     public Mono<String> storeContentStream(UUID documentId, Flux<DataBuffer> contentStream, String mimeType, Long contentLength) {
-        return contentStream
-            .reduce(dataBufferFactory.allocateBuffer(), (accumulated, current) -> {
-                accumulated.write(current.asByteBuffer());
-                return accumulated;
-            })
+        return DataBufferUtils.join(contentStream)
             .map(dataBuffer -> {
                 byte[] content = new byte[dataBuffer.readableByteCount()];
                 dataBuffer.read(content);
+                DataBufferUtils.release(dataBuffer);
                 return content;
             })
             .flatMap(content -> storeContent(documentId, content, mimeType))
