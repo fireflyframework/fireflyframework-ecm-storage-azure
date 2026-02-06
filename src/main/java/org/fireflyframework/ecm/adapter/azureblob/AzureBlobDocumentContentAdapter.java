@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.firefly.ecm.adapter.azureblob;
+package org.fireflyframework.ecm.adapter.azureblob;
 
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.models.BlobProperties;
 import com.azure.storage.blob.models.BlobRange;
 import com.azure.storage.blob.specialized.BlockBlobClient;
-import com.firefly.core.ecm.adapter.AdapterFeature;
-import com.firefly.core.ecm.adapter.EcmAdapter;
-import com.firefly.core.ecm.port.document.DocumentContentPort;
+import org.fireflyframework.ecm.adapter.AdapterFeature;
+import org.fireflyframework.ecm.adapter.EcmAdapter;
+import org.fireflyframework.ecm.port.document.DocumentContentPort;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.retry.Retry;
 import lombok.extern.slf4j.Slf4j;

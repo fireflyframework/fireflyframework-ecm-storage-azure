@@ -1,7 +1,7 @@
-package com.firefly.ecm.adapter.azureblob;
+package org.fireflyframework.ecm.adapter.azureblob;
 
 import com.azure.storage.blob.BlobContainerClient;
-import com.firefly.core.ecm.port.document.DocumentContentPort;
+import org.fireflyframework.ecm.port.document.DocumentContentPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

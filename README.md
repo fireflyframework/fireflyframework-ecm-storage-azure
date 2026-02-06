@@ -16,8 +16,8 @@ Microsoft Azure Blob Storage adapter for Firefly lib‑ecm. Reactive streaming u
 ## Installation
 ```xml
 <dependency>
-  <groupId>com.firefly</groupId>
-  <artifactId>lib-ecm-storage-azure</artifactId>
+  <groupId>org.fireflyframework</groupId>
+  <artifactId>fireflyframework-ecm-storage-azure</artifactId>
   <version>${firefly.version}</version>
 </dependency>
 ```

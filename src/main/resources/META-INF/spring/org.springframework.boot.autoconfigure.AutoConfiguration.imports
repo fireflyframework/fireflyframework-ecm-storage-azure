@@ -1,1 +1,1 @@
-com.firefly.ecm.adapter.azureblob.AzureBlobAutoConfiguration
+org.fireflyframework.ecm.adapter.azureblob.AzureBlobAutoConfiguration

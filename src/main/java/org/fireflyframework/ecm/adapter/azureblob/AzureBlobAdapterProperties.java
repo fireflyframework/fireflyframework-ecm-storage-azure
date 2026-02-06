@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2024 Firefly Software Solutions Inc.
  */
-package com.firefly.ecm.adapter.azureblob;
+package org.fireflyframework.ecm.adapter.azureblob;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
