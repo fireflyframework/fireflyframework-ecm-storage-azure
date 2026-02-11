@@ -1,61 +1,95 @@
-# Firefly ECM Storage – Azure Blob
+# Firefly Framework - ECM Storage - Azure Blob
 
 [![CI](https://github.com/fireflyframework/fireflyframework-ecm-storage-azure/actions/workflows/ci.yml/badge.svg)](https://github.com/fireflyframework/fireflyframework-ecm-storage-azure/actions/workflows/ci.yml)
-
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Java](https://img.shields.io/badge/Java-21+-orange.svg)](https://openjdk.java.net/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java-21%2B-orange.svg)](https://openjdk.org)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green.svg)](https://spring.io/projects/spring-boot)
 
-Microsoft Azure Blob Storage adapter for Firefly lib‑ecm. Reactive streaming uploads/downloads, block uploads, and resilience baked‑in.
+> Azure Blob Storage adapter for Firefly ECM document content management.
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+This module implements the Firefly ECM `DocumentContentPort` using Azure Blob Storage as the storage backend. It provides `AzureBlobDocumentContentAdapter` for storing, retrieving, and managing document content in Azure Blob containers.
+
+The adapter auto-configures via `AzureBlobAutoConfiguration` and is activated by including this module on the classpath alongside the ECM core module.
 
 ## Features
-- Reactive streaming with backpressure
-- Single/block blob uploads with thresholds
-- Metadata (content‑type) handling
-- Resilience4j circuit‑breaker and retry hooks
-- Auto‑config guarded by `firefly.ecm.adapter-type=azure-blob`
+
+- Azure Blob Storage integration for document content storage and retrieval
+- Spring Boot auto-configuration for seamless activation
+- Implements Firefly ECM DocumentContentPort
+- Configurable via application properties
+- Standalone provider library (include alongside fireflyframework-ecm)
+
+## Requirements
+
+- Java 21+
+- Spring Boot 3.x
+- Maven 3.9+
+- Azure Blob Storage account and API credentials
 
 ## Installation
+
 ```xml
 <dependency>
-  <groupId>org.fireflyframework</groupId>
-  <artifactId>fireflyframework-ecm-storage-azure</artifactId>
-  <version>${firefly.version}</version>
+    <groupId>org.fireflyframework</groupId>
+    <artifactId>fireflyframework-ecm-storage-azure</artifactId>
+    <version>26.01.01</version>
 </dependency>
 ```
 
+## Quick Start
+
+The adapter is automatically activated when included on the classpath with the ECM core module:
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.fireflyframework</groupId>
+        <artifactId>fireflyframework-ecm</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.fireflyframework</groupId>
+        <artifactId>fireflyframework-ecm-storage-azure</artifactId>
+    </dependency>
+</dependencies>
+```
+
 ## Configuration
+
 ```yaml
 firefly:
   ecm:
-    enabled: true
-    adapter-type: azure-blob
-    adapter:
+    storage:
       azure-blob:
-        account-name: ${AZURE_ACCOUNT_NAME}
-        container-name: ${AZURE_CONTAINER_NAME}
-        # one of the following
-        account-key: ${AZURE_ACCOUNT_KEY:}
-        connection-string: ${AZURE_CONNECTION_STRING:}
-        sas-token: ${AZURE_SAS_TOKEN:}
-        endpoint: ${AZURE_BLOB_ENDPOINT:}
-        path-prefix: ${AZURE_PATH_PREFIX:documents/}
-        block-upload-threshold: ${AZURE_BLOCK_UPLOAD_THRESHOLD:268435456}
+        connection-string: DefaultEndpointsProtocol=https;AccountName=...
+        container-name: documents
 ```
 
-## Usage
-```java
-@Autowired DocumentContentPort contentPort;
-Flux<DataBuffer> body = ...;
-Mono<String> key = contentPort.storeContentStream(id, body, "application/pdf", null);
-```
+## Documentation
 
-## Resilience
-Inject your own `CircuitBreaker`/`Retry` beans (qualifiers `azureBlobCircuitBreaker`, `azureBlobRetry`) or use defaults.
+No additional documentation available for this project.
 
-## Testing
-- Unit tests mock BlobContainerClient/BlobClient and verify `upload`/`downloadStream`
-- Boot smoke test validates the adapter bean
+## Contributing
+
+Contributions are welcome. Please read the [CONTRIBUTING.md](CONTRIBUTING.md) guide for details on our code of conduct, development process, and how to submit pull requests.
 
 ## License
-Apache 2.0
+
+Copyright 2024-2026 Firefly Software Solutions Inc.
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
