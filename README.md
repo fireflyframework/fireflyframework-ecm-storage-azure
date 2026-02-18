@@ -48,7 +48,7 @@ The adapter auto-configures via `AzureBlobAutoConfiguration` and is activated by
 <dependency>
     <groupId>org.fireflyframework</groupId>
     <artifactId>fireflyframework-ecm-storage-azure</artifactId>
-    <version>26.02.05</version>
+    <version>26.02.06</version>
 </dependency>
 ```
 
